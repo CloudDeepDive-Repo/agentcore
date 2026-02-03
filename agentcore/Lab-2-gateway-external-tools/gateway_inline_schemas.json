@@ -1,0 +1,84 @@
+{
+  "gateway_targets": [
+    {
+      "function_name": "get-ec2-details",
+      "target_name": "GetEC2DetailsTarget",
+      "inline_schema": [
+        {
+          "name": "get_ec2_details",
+          "description": "Get EC2 instance details including VPC, subnet, security groups, public IP, private IP, and state",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "instance_id": {
+                "type": "string",
+                "description": "The EC2 instance ID (e.g., i-064478c7beb840c75)"
+              }
+            },
+            "required": ["instance_id"]
+          }
+        }
+      ]
+    },
+    {
+      "function_name": "check-internet-gateway",
+      "target_name": "CheckIGWTarget",
+      "inline_schema": [
+        {
+          "name": "check_internet_gateway",
+          "description": "Check if a VPC has an Internet Gateway attached and return the IGW ID if present",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "vpc_id": {
+                "type": "string",
+                "description": "The VPC ID to check for Internet Gateway (e.g., vpc-0f80cb9c14c6a5ca7)"
+              }
+            },
+            "required": ["vpc_id"]
+          }
+        }
+      ]
+    },
+    {
+      "function_name": "check-route-table",
+      "target_name": "CheckRouteTableTarget",
+      "inline_schema": [
+        {
+          "name": "check_route_table",
+          "description": "Check route table for a subnet and determine if it has routes to Internet Gateway or NAT Gateway",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "subnet_id": {
+                "type": "string",
+                "description": "The subnet ID to check route table for (e.g., subnet-xxxxx)"
+              }
+            },
+            "required": ["subnet_id"]
+          }
+        }
+      ]
+    },
+    {
+      "function_name": "check-security-group",
+      "target_name": "CheckSecurityGroupTarget",
+      "inline_schema": [
+        {
+          "name": "check_security_group",
+          "description": "Check security group ingress and egress rules to determine if outbound internet traffic is allowed",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "security_group_id": {
+                "type": "string",
+                "description": "The security group ID to check (e.g., sg-xxxxx)"
+              }
+            },
+            "required": ["security_group_id"]
+          }
+        }
+      ]
+    }
+  ]
+}
